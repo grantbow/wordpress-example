@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# wordpress
 # This deploy hook gets executed after dependencies are resolved and the
 # build hook has been run but before the application has been started back
 # up again.  This script gets executed directly, so it could be python, php,
@@ -82,3 +83,39 @@ then
 else
     echo "Database already configured."
 fi
+
+
+# etherpad
+# This deploy hook gets executed after dependencies are resolved and the
+# build hook has been run but before the application has been started back
+# up again.  This script gets executed directly, so it could be python, php,
+# ruby, etc.
+#cp -v $OPENSHIFT_REPO_DIR/.openshift/mongodb_db.js $OPENSHIFT_REPO_DIR/node_modules/ueberDB/
+
+#settingsfile=$OPENSHIFT_REPO_DIR/settings.json
+
+#sed -i 's/OPENSHIFT_NODEJS_IP/'$OPENSHIFT_NODEJS_IP'/' $settingsfile
+#sed -i 's/OPENSHIFT_NODEJS_PORT/'$OPENSHIFT_NODEJS_PORT'/' $settingsfile
+#sed -i 's/OPENSHIFT_MONGODB_DB_USERNAME/'$OPENSHIFT_MONGODB_DB_USERNAME'/' $settingsfile
+#sed -i 's/OPENSHIFT_MONGODB_DB_HOST/'$OPENSHIFT_MONGODB_DB_HOST'/' $settingsfile
+#sed -i 's/OPENSHIFT_MONGODB_DB_PORT/'$OPENSHIFT_MONGODB_DB_PORT'/' $settingsfile
+#sed -i 's/OPENSHIFT_MONGODB_DB_PASSWORD/'$OPENSHIFT_MONGODB_DB_PASSWORD'/' $settingsfile
+#sed -i 's/OPENSHIFT_APP_NAME/'$OPENSHIFT_APP_NAME'/' $settingsfile
+
+# Set up the symbolic links needed for etherpad to work
+pushd $OPENSHIFT_REPO_DIR
+if [[ -f ./server.js ]]
+then
+  rm server.js
+fi
+ln -s node/server.js .
+popd
+
+pushd $OPENSHIFT_REPO_DIR/static/js
+for i in ./*
+do
+  renamed=$(echo $i | sed 's/.js$//g')
+  ln -s $i $renamed
+done
+popd
+

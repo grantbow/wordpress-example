@@ -1,0 +1,26 @@
+{
+  "ip": "OPENSHIFT_NODEJS_IP",
+  "port" : "OPENSHIFT_NODEJS_PORT",
+
+  "dbType" : "mysqldb",
+  "dbSettings" : {
+                   "user"    : "OPENSHIFT_MYSQLDB_DB_USERNAME",
+                   "host"    : "OPENSHIFT_MYSQLDB_DB_HOST",
+                   "port"    : OPENSHIFT_MYSQLDB_DB_PORT,
+                   "password": "OPENSHIFT_MYSQLDB_DB_PASSWORD",
+                   "dbname": "OPENSHIFT_APP_NAME"
+                 },
+  
+  "defaultPadText" : "Welcome to Etherpad Lite!\n\nThis pad text is synchronized as you type, so that everyone viewing this page sees the same text. This allows you to collaborate seamlessly on documents!\n\nEtherpad Lite on Github: http:\/\/j.mp/ep-lite\n",
+  
+  "requireSession" : false,
+
+  "editOnly" : false,
+  
+  "minify" : true,
+  
+  "abiword" : null,
+  
+  /* The log level we are using, can be: DEBUG, INFO, WARN, ERROR */
+  "loglevel": "INFO"
+}
